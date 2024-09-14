@@ -1,0 +1,179 @@
+
+
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+
+{% load static %}
+
+<!-- partial -->
+ 
+   
+
+     <!--add form here-->
+
+     <div class="row justify-content-center">
+
+
+     <div class="col-8 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Add a new product</h4>
+            <p class="card-description"> please provide product details </p>
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="alert alert-danger">{{message}}</div>
+
+            {% endfor %}
+
+
+            {% endif %}
+            <form class="forms-sample" action="" method="POST" enctype="multipart/form-data" >
+            <div class="row"> {% csrf_token %}
+
+            <div class="col-8">
+
+              <div class="form-group">
+                
+                <label for="exampleInputName1">Product Title</label>
+                <input type="text" required name="title" class="form-control" id="exampleInputName1" placeholder="2 Pair Of Shoes">
+              </div>
+            </div>
+
+        <div class="col-4">
+              <div class="form-group">
+                <label for="exampleInputEmail3">Sale Price(BDT)</label>
+                <input type="number" required name="price" class="form-control" id="exampleInputEmail3" placeholder="997">
+              </div>
+            </div>
+        </div>
+           
+        
+             
+              <!--custom file upload field-->
+              <div class="form-group">
+
+                <label>Upload Product Image</label>
+
+              <div class="uploadFile">
+                <i class="fas fa-paperclip fa-md mr-2"></i>
+               
+                <input type="file" class="inputfile form-control" name="product_image" >
+              </div>
+            </div>
+
+              <!--end of custom file upload field-->
+              
+              <div class="form-group mt-4">
+                <label for="exampleTextarea1">Description</label>
+                <textarea required class="form-control" placeholder="My product is good" name="description" id="exampleTextarea1" rows="4"></textarea>
+              </div>
+              <button type="submit" class="btn btn-gradient-primary me-2">Create Product</button>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+     <!--end of adding form here-->
+     
+
+
+     <!--custom css -->
+
+    <style>
+
+        // .uploadFile {
+            //   background-color: white;
+            //   border: 1px solid #a0a0a0;
+            //   color: #a0a0a0;
+            //   width: 30%;
+            //   font-size: 16px;
+            //   line-height: 23px;
+            //   overflow: hidden;
+            //   padding: 10px 10px 4px 10px;
+            //   position: relative;
+            //   resize: none;
+            
+            //   label,
+            //   i {
+            //     color: #a0a0a0;
+            //   }
+            
+            //   [type="file"] {
+            //     cursor: pointer !important;
+            //     display: block;
+            //     font-size: 999px;
+            //     filter: alpha(opacity=0);
+            //     min-height: 100%;
+            //     min-width: 100%;
+            //     opacity: 0;
+            //     position: absolute;
+            //     right: 0px;
+            //     text-align: right;
+            //     top: 0px;
+            //     z-index: 1;
+            //   }
+            // }
+            
+            // .form-control {
+            //   border-radius: 0 !important;
+            // }
+            
+            
+            //JAKES CODE
+            .uploadFile {
+              width: 30%;
+              background-color: white;
+              border: 1px solid grey;
+              color: grey;
+              font-size: 16px;
+              line-height: 23px;
+              overflow: hidden;
+              padding: 10px 10px 4px 10px;
+              position: relative;
+              resize: none;
+            
+              [type="file"] {
+                cursor: pointer !important;
+                display: block;
+                font-size: 999px;
+                filter: alpha(opacity=0);
+                min-height: 100%;
+                min-width: 100%;
+                opacity: 0;
+                position: absolute;
+                right: 0px;
+                text-align: right;
+                top: 0px;
+                z-index: 1;
+              }
+            }
+            
+  
+
+    </style>
+     <!--end of custom css-->
+
+
+     <!-- custom js -->
+
+    <script>
+        
+
+
+$("input[type=file]").change(function (e) {
+    $(this).parents(".uploadFile").find(".filename").text(e.target.files[0].name);
+  });
+  
+
+    </script>
+
+     <!-- end of custom js -->
+
+{% endblock content %}
