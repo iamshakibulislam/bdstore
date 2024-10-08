@@ -1,7 +1,7 @@
 
 
 {% extends 'main/base.html' %}
-{% block title %} Add products {% endblock title %}
+{% block title %} Edit product {% endblock title %}
 
 {% block content %}
 
@@ -20,8 +20,8 @@
      <div class="col-8 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Add a new product</h4>
-            <p class="card-description"> please provide product details </p>
+            <h4 class="card-title">Edit product information</h4>
+            <p class="card-description"> please update product details </p>
             {% if messages %}
 
             {% for message in messages %}
@@ -32,22 +32,24 @@
 
 
             {% endif %}
-            <form class="forms-sample" action="" method="POST" enctype="multipart/form-data" >
+            <form class="forms-sample" action="{% url 'edit_product' %}" method="POST" enctype="multipart/form-data" >
             <div class="row"> {% csrf_token %}
+
+                <input type="hidden" name="id" value="{{product_obj.id}}"/>
 
             <div class="col-8">
 
               <div class="form-group">
                 
                 <label for="exampleInputName1">Product Title</label>
-                <input type="text" maxlength="100" required name="title" class="form-control" id="exampleInputName1" placeholder="2 Pair Of Shoes">
+                <input type="text" maxlength="100" required name="title" class="form-control" id="exampleInputName1" placeholder="2 Pair Of Shoes" value="{{product_obj.title}}">
               </div>
             </div>
 
         <div class="col-4">
               <div class="form-group">
                 <label for="exampleInputEmail3">Sale Price(BDT)</label>
-                <input type="number" required name="price" class="form-control" id="exampleInputEmail3" placeholder="997">
+                <input type="number" value="{{product_obj.price}}" required name="price" class="form-control" id="exampleInputEmail3" placeholder="997">
               </div>
             </div>
         </div>
@@ -56,23 +58,31 @@
              
               <!--custom file upload field-->
               <div class="form-group">
+                
 
-                <label>Upload Product Image</label>
+                <label>Update Product Image</label>
+           
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <img height="100" width="100" src="{{product_obj.image.url}}"/>
+                    </div>
 
+                    <div class="col-md-9">
               <div class="uploadFile">
                 <i class="fas fa-paperclip fa-md mr-2"></i>
                
                 <input type="file" class="inputfile form-control" name="product_image" >
-              </div>
+              </div></div>
+            </div>
             </div>
 
               <!--end of custom file upload field-->
               
               <div class="form-group mt-4">
                 <label for="exampleTextarea1">Description</label>
-                <textarea maxlength="1000" required class="form-control" placeholder="My product is good" name="description" id="exampleTextarea1" rows="4"></textarea>
+                <textarea maxlength="1000"  required class="form-control" placeholder="My product is good" name="description" id="exampleTextarea1" rows="4">{{product_obj.description}}</textarea>
               </div>
-              <button type="submit" class="btn btn-gradient-primary me-2">Create Product</button>
+              <button type="submit" class="btn btn-gradient-primary me-2">Update Product</button>
               
             </form>
           </div>

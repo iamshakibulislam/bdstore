@@ -1,5 +1,7 @@
 from django.db import models
 from User.models import User
+from datetime import datetime
+from django.utils import timezone
 
 class product(models.Model):
     user = models.ForeignKey(User,default=3,on_delete=models.CASCADE)
@@ -7,6 +9,7 @@ class product(models.Model):
     price = models.FloatField(default=0)
     description = models.TextField(default="product description")
     image = models.ImageField(upload_to="product_images")
+    created_at = models.DateTimeField(default=timezone.now())
 
 
     def __str__(self):
