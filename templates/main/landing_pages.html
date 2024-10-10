@@ -1,0 +1,351 @@
+{% extends 'main/base.html' %}
+{% block title %} My landing pages {% endblock title %}
+
+
+{% block content %}
+
+{% load static %}
+
+
+<div class="row justify-content-center">
+
+
+    <div class="col-12 grid-margin stretch-card">
+       <div class="card">
+         <div class="card-body">
+            <!--
+           <h4 class="card-title text-center">Your products </h4>
+         -->
+           <div class="row justify-content-around">
+            <div class="col-md-4 mb-4">
+              <a href="" id="edit_link">
+                <button class="btn btn-primary btn-sm btn-rounded">  
+                    <i class="mdi mdi-table-edit float-left"></i>
+                Edit 
+              </button> </a>
+                <button class="btn btn-danger btn-sm btn-rounded" id="delete_button" data-toggle="modal" data-target="#DeleteConfirmationModal">
+                    <i class="mdi mdi-delete-forever float-left"></i>Delete</button>
+                
+            </div>
+            <div class="col-md-8 mb-4">
+              <div class="row">
+                <div class="col-6">
+
+                    <a class="btn btn-primary text-white text-center btn-rounded btn-sm" href="{% url 'add_landing_page' %}">  
+                        <i class="mdi mdi-plus-circle float-left"></i>
+                        Create landing page</a>
+
+                    <!--
+                    
+              <form class="form-inline" method="GET" action="">
+
+                <div class="input-group">
+                
+                <input type="text" class="form-control" placeholder="Enter any keyword" name="keyword"/>
+                
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+
+                </div>
+               
+              </form> -->
+            </div> 
+
+              {% if is_keyword == 0 %}
+
+                <div class="col-6">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                      <!-- Previous Page -->
+                      {% if pages.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ pages.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link" aria-hidden="true">&laquo;</span>
+                        </li>
+                      {% endif %}
+                  
+                      <!-- Page Numbers -->
+                      {% for num in pages.paginator.page_range %}
+                        {% if pages.number == num %}
+                          <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ num }}</span>
+                          </li>
+                        {% elif num > pages.number|add:-3 and num < pages.number|add:3 %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                  
+                      <!-- Next Page -->
+                      {% if pages.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ pages.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link" aria-hidden="true">&raquo;</span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                  
+
+                </div>
+
+                {% endif %}
+
+                <!-- for the search pages-->
+                {% if is_keyword == 1 %}
+
+                <div class="col-6">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                      <!-- Previous Page -->
+                      {% if pages.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ pages.previous_page_number }}&keyword={{keyword}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link" aria-hidden="true">&laquo;</span>
+                        </li>
+                      {% endif %}
+                  
+                      <!-- Page Numbers -->
+                      {% for num in pages.paginator.page_range %}
+                        {% if pages.number == num %}
+                          <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ num }}</span>
+                          </li>
+                        {% elif num > pages.number|add:-3 and num < pages.number|add:3 %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}&keyword={{keyword}}">{{ num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                  
+                      <!-- Next Page -->
+                      {% if pages.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ pages.next_page_number }}&keyword={{keyword}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link" aria-hidden="true">&raquo;</span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                  
+
+                </div>
+
+
+                {% endif %}
+
+                <!-- end for the search pages navigation-->
+
+              </div>
+            </div>
+         </div>
+
+           
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                        <th></th>
+                        
+                      <th> Product Image </th>
+                      <th> Title </th>
+                      <th> Price </th>
+                      <th> Description </th>
+                      <th> Created At </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% if count == 0 %}
+
+                    <h1 class="text-center">No Data To Show </h1>
+
+                    {% endif %}
+
+                    {% for obj in pages %}
+
+                    <tr id="{{obj.id}}">
+                        <td>
+                            
+                          <input class="checkbox form-check-input align-center text-center" type="checkbox" value="{{obj.id}}">
+                                
+                              
+                        </td>
+                      <td class="py-1">
+                        <img src="{{obj.image.url}}" alt="image" />
+                      </td>
+                      <td> {{obj.title}} </td>
+                      
+                      <td> {{obj.price}} ৳ </td>
+                      <td> {{obj.description|truncatechars:39}} </td>
+                      <td> {{obj.created_at}} </td>
+                    </tr>
+
+                   {% endfor %}
+                   
+                  </tbody>
+                </table>
+              
+
+         </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- bootstrap modals for delete confirmation -->
+<!-- Modal -->
+<div class="modal fade" id="DeleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body" id="modalbody text-center">
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <img id="deletedimg" height="100" width="100" class="text-center" src="{% static 'assets/images/deleted.png' %}"/>
+       
+        <img id="loadingimg" height="100" width="100" class="text-center" src="{% static 'assets/images/loading.gif' %}"/>
+          
+        </div>
+      </div>
+        <h1 class="font-weight-bold text-center" id="bodytext">Are you sure?</h1>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-secondary btn-sm text-center" data-dismiss="modal">Close</button>
+        <button type="button" id="deletebtn" class="btn btn-danger btn-sm text-center">Yes, Please Delete
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end of modals delete confirmation-->
+
+
+
+
+<script>
+
+    $(".checkbox").change(function() {
+        $(".checkbox").not(this).prop('checked', false);
+    });
+</script>
+
+<script>
+    // Global variable to store the selected checkbox name
+    let selectedValue = null;
+
+    // jQuery to handle checkbox change events
+    $('input[type="checkbox"]').on('change', function() {
+        if ($(this).is(':checked')) {
+            selectedValue = $(this).attr('value'); // Set the global variable when checked
+            $('#edit_link').attr("href","/products/edit_product?id="+selectedValue);
+        } else {
+            selectedValue = null; // Set to null when unchecked
+            $('#edit_link').attr("href","");
+        }
+        console.log('Selected value:', selectedValue); // Log the global variable
+    });
+</script>
+
+<!-- javascript for modals -->
+<script>
+$(document).ready(function(){
+
+
+$('#delete_button').on("click",function(){
+
+  $('#loadingimg').hide();
+  $('#deletedimg').hide();
+  $('#bodytext').text("Are you sure ?");
+})
+
+//select the button and trigger after the click
+
+$('#loadingimg').hide();
+$('#deletedimg').hide();
+
+$('#deletebtn').on("click",function(){
+
+if(selectedValue == null){
+
+  alert("Please select a product");
+  return false;
+
+}
+
+
+  $('#bodytext').text("Deleting...");
+  $('#loadingimg').show();
+
+  //get the selected id value 
+
+  var selected_id = selectedValue;
+
+  var datas = {"id":selected_id};
+
+  console.log(datas);
+
+  $.ajax({
+    dataType:"JSON",
+    type:"GET",
+    data:datas,
+    url :"{% url 'delete_product' %}"
+    
+})
+
+.done(function(result){
+
+  if(result["status"]=="deleted"){
+
+    $('#loadingimg').hide();
+    $('#deletedimg').show();
+    $('#bodytext').text("Deleted!");
+
+    $("tr[id='" + selected_id + "']").remove();
+
+    selected_id = null;
+    selectedValue = null;
+
+  }
+  else{
+
+    window.location.reload();
+
+  }
+
+})
+.fail(function(result){window.location.reload()});
+
+
+
+
+
+})
+
+});
+
+</script>
+
+<!-- end of javascript for modals -->
+
+{% endblock content %}

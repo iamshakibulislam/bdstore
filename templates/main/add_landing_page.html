@@ -1,0 +1,359 @@
+
+
+{% extends 'main/base.html' %}
+{% block title %} Create landing page {% endblock title %}
+
+{% block content %}
+
+
+{% load static %}
+
+<!-- partial -->
+
+<style>
+  .selected_box {
+    border: 1px solid #00ffcc; /* Set border color */
+    border-radius: 10px; /* Optional: for rounded corners */
+    padding: 0px; /* Some padding */
+    
+    /* Glow effect using box-shadow */
+    box-shadow: 0 0 15px #00ffcc, 
+                0 0 30px #00ffcc, 
+                0 0 45px #00ffcc, 
+                0 0 60px #00ffcc; 
+  
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition */
+  }
+
+</style>
+
+
+     <!--add form here-->
+
+     <div class="row justify-content-center">
+
+
+     <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <a class="btn btn-primary btn-sm mb-4 btn-rounded">
+                <i class="mdi mdi-content-save"></i>
+                 Save & Edit Template </a> 
+            
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="alert alert-danger">{{message}}</div>
+
+            {% endfor %}
+
+
+            {% endif %}
+            <form class="forms-sample" action="" method="POST" enctype="multipart/form-data" >
+            <div class="row"> {% csrf_token %}
+
+            <div class="col-8">
+
+              <div class="form-group">
+                
+                <label for="exampleInputName1">Name</label>
+                <input type="text" maxlength="100" required name="title" class="form-control" id="name" placeholder="2 Pair Of Shoes">
+              </div>
+            </div>
+
+        <div class="col-4">
+              <div class="form-group">
+                <label for="select_domain">Select Domain</label>
+                <select class="form-select" id="select_domain">
+                    <option>www.example.com</option>
+                    <option>yoursubdomain.com</option>
+                    
+                  </select>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="form-group">
+                    <label for="landing_url">Landing page url </label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-dark" id="selected_domain">example.domain.com/</span>
+                      </div>
+                    <input type="text" class="form-control" name="landing_url_path" value="" id="landing_page_url"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="select_product">Select Product</label>
+                    <select class="form-select" id="select_product">
+                        <option>Prod 1</option>
+                        <option>prod 2</option>
+                        
+                      </select>
+                  </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center"> Select a landing page</h5>
+            </div>
+        </div>
+        <!-- landing page selector -->
+       
+            
+
+              <!--end of custom file upload field-->
+              
+             
+              
+              
+            </form>
+
+            <div class="rows">
+                <div class="cols-md-12">
+                    
+                                      
+                  <div id="example">
+                    <carousel-3d>
+                      <slide :index="0" class = "cardbox " slideid="0" >
+                        <a class="btn btn-primary btn-sm is_select" id="0" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+
+                      <slide :index="1" class = "cardbox " slideid="1">
+                        <a class="btn btn-primary btn-sm is_select" id="1" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        
+                        <img id="1" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+
+                      <slide :index="2" class = "cardbox " slideid="2">
+                        <a class="btn btn-primary btn-sm is_select" id="2" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img id="2" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+                      <slide :index="3" class = "cardbox " slideid="3">
+                        <a class="btn btn-primary btn-sm is_select" id="3" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img id="3" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+                      <slide :index="4" class = "cardbox " slideid="4">
+                        <a class="btn btn-primary btn-sm is_select" id="4" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img id="4" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+                      <slide :index="5" class = "cardbox " slideid="5">
+                        <a class="btn btn-primary btn-sm is_select" id="5" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img id="5" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+                      <slide :index="6" class = "cardbox " slideid="6">
+                        <a class="btn btn-primary btn-sm is_select" id="1" style="position:absolute;top:0;left:0">
+                          <span class="statustext" >Select </span>
+
+                          <i class="mdi mdi-checkbox-blank-outline deselected"></i> 
+                          <i class="mdi mdi-checkbox-marked selected d-none"></i> 
+                        
+                        </a>
+                        <a class="btn btn-danger btn-sm" style="position:absolute;top:0;right:0"><i class="mdi mdi-eye"></i> Preview  </a>
+                        <img id="6" src="https://t3.ftcdn.net/jpg/03/83/46/48/360_F_383464809_VAyaM0bON9NZT1UCPXghp8GhHx56QKqm.jpg" style="height:400px;width:300px">
+                      </slide>
+                    </carousel-3d>
+                  </div>
+                    
+                    
+                </div>
+    
+           </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+     <!--end of adding form here-->
+     
+
+
+     <!--custom css -->
+
+      <style>
+      </style>
+
+    
+     <!-- end of custom js -->
+       
+     <script src="{% static 'customassets/vue.min.js' %}"></script>
+
+     <script src="{% static 'customassets/3dslider.js' %}"> </script>
+
+
+
+<!-- Js to validate, manupulate and submit the form -->
+
+<script>
+//working with landing page selection 
+
+$(document).ready(function(){
+
+  var selected_id = null;
+  $('.cardbox').removeClass("selected_box");
+
+  $('.is_select').on('click',function(){
+
+    $('.selected').addClass("d-none");
+    $('.statustext').text("Select ");
+    $('.deselected').removeClass("d-none");
+    $('.cardbox').removeClass("selected_box");
+    
+
+    $(this).find(".selected").removeClass("d-none");
+
+    $(this).find(".deselected").addClass("d-none");
+    $(this).find(".statustext").text("Selected ");
+    $(this).parent().addClass("selected_box");
+
+    selected_id = $(this).attr("id");
+
+
+
+  });
+
+
+  //function to keep the card glowing untill another card is selected 
+
+  $('.cardbox').on('click',function(){
+
+   
+
+    if(selected_id == null){
+      //do nothing
+    }
+    else{
+
+      setTimeout(function(){
+        $('[slideid="' + selected_id + '"]').addClass("selected_box");
+
+      },300)
+
+      
+
+
+    }
+
+  });
+
+})
+ 
+
+  
+</script>
+
+
+<!--updating the url input from the title field-->
+<script>
+  $(document).ready(function() {
+    $('#name').on('keyup', function() {
+      let titleValue = $(this).val();
+
+      // Replace invalid characters and trim extra spaces
+      let urlValue = titleValue
+        .replace(/[\.\#\*\%\$\@\!\,\?\;]/g, '-')   // Replace invalid characters with a dash
+        .replace(/\s+/g, '-')                      // Convert spaces to dashes, reduce multiple spaces to one dash
+        .replace(/-+$/, '')                        // Remove trailing dashes
+
+      // Check if the last character is a punctuation, don't append dash if it's the last character
+      if (/[\.#*%$@!,?;]$/.test(titleValue)) {
+        urlValue = urlValue.replace(/-+$/, '');    // Remove extra dash at the end for punctuation
+      }
+
+      // Update the landing page URL input field
+      $('#landing_page_url').val(urlValue);
+    });
+  });
+</script>
+
+<!-- end of working with form validation and manupulation and submission-->
+
+<!-- domain update in the landing page url field-->
+<script>
+  $(document).ready(function() {
+    // Function to update the selected domain with trailing slash if necessary
+    function updateSelectedDomain() {
+      // Get the selected option value
+      let selectedDomain = $('#select_domain').val();
+      
+      // Add trailing slash if it doesn't already exist
+      if (!selectedDomain.endsWith('/')) {
+        selectedDomain += '/';
+      }
+
+      // Update the span text
+      $('#selected_domain').text(selectedDomain);
+    }
+
+    // Call the function on page load
+    updateSelectedDomain();
+
+    // Listen for change events in the select dropdown
+    $('#select_domain').on('change', function() {
+      updateSelectedDomain();
+    });
+  });
+</script>
+
+<!-- end of domain update-->
+
+{% endblock content %}
